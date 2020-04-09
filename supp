@@ -1,25 +1,40 @@
 #!/bin/bash
 #Le fichier, Répertoire à supprimer est à indiquer (absolu ou relatif) en paramètre de la commande.
+
 #Par défaut, la valeur de answer est vide afin de prompter la confirmation de suppression une première fois.
 answer=""
 
+#Définition des divers messages du script
+errparam="Merci d'indiquer le nom ou chemin du fichier à supprimer en entrant la commande."
+errfile="Le fichier $1 est introuvable, merci d'indiquer un chemin de fichier valide."
+promptdel="Êtes - vous certain de vouloir supprimer $1 ? (o/n)"
+success="L'opération de suppression de \"$1\" s'est terminée sans erreur."
+cancel="Suppression de \"$1\" annulée."
+
 if [ -z $1 ]
 then
-	echo "Merci d'indiquer le nom ou chemin du fichier à supprimer en entrant la commande."
+	echo $errparam
+	exit
+fi
+
+find $1 > /dev/null 2>&1
+if [ $? != 0 ]
+then
+	echo $errfile
 	exit
 fi
 
 while [ "$answer" != "o" ] && [ "$answer" != "n" ]
 do
-	echo "Êtes - vous certain de vouloir supprimer $1 ? (o/n)"
+	echo $promptdel
 	read answer
 done
 
 if [ $answer = "o" ]
 then
 	rm -rfv $1
-	echo "L'opération de suppression de \"$1\" s'est terminée sans erreur."
+	echo $success
 elif [ $answer = "n" ]
 then
-	echo "Suppression de \"$1\" annulée."
+	echo $cancel
 fi

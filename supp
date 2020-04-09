@@ -1,5 +1,5 @@
 #!/bin/bash
-#Le fichier, Réperoire à supprimer est à indiquer (absolu ou relatif) en paramètre de la commande.
+#Le fichier, Répertoire à supprimer est à indiquer (absolu ou relatif) en paramètre de la commande.
 #Par défaut, la valeur de answer est vide afin de prompter la confirmation de suppression une première fois.
 answer=""
 
